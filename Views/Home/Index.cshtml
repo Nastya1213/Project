@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Главная страница";
+    var topConcerts = ViewBag.TopConcerts as List<Project.Models.Concert>;
+}
+
+<div class="container mt-4">
+    <!-- Топ-10 концертов -->
+    <div>
+        <h2 class="mb-4">Топ-10 концертов</h2>
+        <div class="row">
+            @foreach (var concert in topConcerts)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="background-image: url('@Url.Content("~/images/" + concert.ImageFileName)'); background-size: cover; background-position: center;">
+                        <div class="card-body text-light">
+                            <h5 class="card-title">@concert.Name</h5>
+                            <p class="card-text text-muted">
+                                Дата: @concert.Date.ToString("dd.MM.yyyy")<br />
+                                Время: @concert.Time.ToString(@"hh\:mm")<br />
+                                Место: @concert.Venue
+                            </p>
+                            @if (!string.IsNullOrEmpty(concert.Description))
+                            {
+                                <p class="card-text">@concert.Description</p>
+                            }
+                            <a href="/Concert/Details/@concert.ConcertId" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
