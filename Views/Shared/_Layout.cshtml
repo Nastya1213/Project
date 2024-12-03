@@ -22,35 +22,6 @@
             <a href="/Account/Login" class="btn btn-light">Войти</a>
         </div>
     </header>
-
-    <!-- Карусель изображений -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Динамическое добавление слайдов -->
-            @if (ViewBag.Images != null)
-            {
-                var first = true;
-                foreach (var image in ViewBag.Images)
-                {
-                    var isActiveClass = first ? "active" : "";
-                    first = false;
-                    <div class="carousel-item @isActiveClass">
-                        <img src="@Url.Content("~/images/" + image)" class="d-block w-100" alt="Концерт">
-                    </div>
-                }
-            }
-        </div>
-        <!-- Управление каруселью -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Предыдущий</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Следующий</span>
-        </button>
-    </div>
-
     <!-- Основной контент страницы -->
     <main>
         @RenderBody() <!-- Это место для контента страницы -->

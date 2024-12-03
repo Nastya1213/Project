@@ -18,17 +18,17 @@ namespace Project.Controllers
         }
 
         public IActionResult Index()
-        {
-            // Путь к папке с изображениями
-            var imagesDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+        {   // Путь к папке с изображениями для карусели
+            var carouselDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "images", "carousel");
 
             // Получаем список всех файлов изображений в папке
-            var imageFiles = Directory.GetFiles(imagesDirectory, "*.*")
-                .Where(file => file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                            file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                            file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
-                .Select(file => Path.GetFileName(file)) // Берём только имена файлов
-                .ToList();
+            var imageFiles = Directory.GetFiles(carouselDirectory, "*.*")
+                .Where(file => file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".png"))
+                .Select(file => Path.GetFileName(file)) // Получаем только имя файла
+                .ToArray();
+
+            // Передаем список изображений в представление
+            ViewBag.ConcertImages = imageFiles;
 
             // Получение топ-10 концертов из базы данных с привязкой к картинкам
             var topConcerts = _context.Concerts

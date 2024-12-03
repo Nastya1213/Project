@@ -25,6 +25,18 @@
       "PackagePath": "staticwebassets/images/PV103230 copy.jpg"
     },
     {
+      "Id": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/concert1.jpg",
+      "PackagePath": "staticwebassets/images/carousel/concert1.jpg"
+    },
+    {
+      "Id": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/concert2.jpg",
+      "PackagePath": "staticwebassets/images/carousel/concert2.jpg"
+    },
+    {
+      "Id": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/concert3.jpg",
+      "PackagePath": "staticwebassets/images/carousel/concert3.jpg"
+    },
+    {
       "Id": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/concert1.jpg",
       "PackagePath": "staticwebassets/images/concert1.jpg"
     },
