@@ -39,7 +39,7 @@ footer {
 /* Убираем лишние отступы у текста с призывом */
 .text-center.my-5 {
     margin-top: 30px !important; /* Убираем верхний отступ у текста */
-    margin-bottom: 1px !important;  /* Устанавливаем маленький нижний отступ */
+    margin-bottom: 100px !important;  /* Устанавливаем маленький нижний отступ */
 }
 .carousel-item img {
     object-fit: cover !important; /* Обеспечивает правильное обрезание изображений */

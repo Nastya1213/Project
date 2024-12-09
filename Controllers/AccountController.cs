@@ -31,4 +31,44 @@ public class AccountController : Controller
         // Если данные некорректны, возвращаем форму с ошибками
         return View(user);
     }
+
+    // --- Логин ---
+
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Login(string email, string password)
+    {
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            ModelState.AddModelError("", "Email и пароль обязательны.");
+            return View();
+        }
+
+        var user = _context.Users.SingleOrDefault(u => u.Email == email && u.Password == password);
+
+        if (user == null)
+        {
+            ModelState.AddModelError("", "Неверный Email или пароль.");
+            return View();
+        }
+
+        // Логика аутентификации
+        HttpContext.Session.SetString("UserEmail", user.Email);
+
+        // Устанавливаем сообщение
+        TempData["SuccessMessage"] = $"Добро пожаловать, {user.Name}!";
+        return RedirectToAction("Index", "Home");
+    }
+
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        TempData["InfoMessage"] = "Вы успешно вышли из системы.";
+        return RedirectToAction("Login", "Account");
+    }
 }
