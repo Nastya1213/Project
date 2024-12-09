@@ -8,7 +8,15 @@ builder.Services.AddControllersWithViews();
 
 // Регистрация ApplicationDbContext с использованием SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite("Data Source=/Users/anastasiaponomareva/Desktop/c#/Project/Data/mydb.db")); // Укажите ваш путь к базе данных
+    options.UseSqlite("Data Source=/Users/anastasiaponomareva/Desktop/Project/Data/mydb.db")); // Укажите ваш путь к базе данных
+
+// Добавляем сессии
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Время жизни сессии
+    options.Cookie.HttpOnly = true; // Безопасность: сессии доступны только через HTTP
+    options.Cookie.IsEssential = true; // Обязательно для работы приложения
+});
 
 var app = builder.Build();
 
@@ -23,6 +31,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession(); // Подключаем сессии
 
 app.UseAuthorization();
 

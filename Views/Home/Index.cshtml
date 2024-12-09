@@ -3,6 +3,21 @@
     var topConcerts = ViewBag.TopConcerts as List<Project.Models.Concert>;
 }
 
+<!-- Уведомления -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["InfoMessage"]
+    </div>
+}
+
 
 <div class="container mt-1">
     <!-- Карусель -->

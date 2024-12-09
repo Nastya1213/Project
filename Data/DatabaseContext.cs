@@ -11,6 +11,6 @@ public class ApplicationDbContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("Data Source=/Users/anastasiaponomareva/Desktop/c#/Project/Data/mydb.db"); // Укажите путь к вашей базе данных
+        optionsBuilder.UseSqlite("Data Source=/Users/anastasiaponomareva/Desktop/Project/Data/mydb.db"); // Укажите путь к вашей базе данных
     }
 }
