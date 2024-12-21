@@ -19,17 +19,32 @@
             <p><strong>Место проведения:</strong> @(Model.Venue ?? "Не указано")</p>
             <p><strong>Описание:</strong></p>
             <p>@(string.IsNullOrEmpty(Model.Description) ? "Описание отсутствует." : Model.Description)</p>
+            
             <h3>Отзывы</h3>
-                @foreach (var review in Model.Reviews)
+            <!-- Контейнер для отзывов -->
+            <div class="reviews-container" style="max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                @if (Model.Reviews.Any(r => r.IsVisible))
                 {
-                    <div>
-                        <strong>@review.User.Email</strong> - @review.Rating/5
-                        <p>@review.Comment</p>
-                        <small>@review.ReviewDate.ToShortDateString()</small>
-                    </div>
+                    @foreach (var review in Model.Reviews.Where(r => r.IsVisible))
+                    {
+                        <div class="review mb-3">
+                            <strong>@review.User.Email</strong> - @review.Rating/5
+                            <p>@review.Comment</p>
+                            <small class="text-muted">@review.ReviewDate.ToShortDateString()</small>
+                        </div>
+                    }
                 }
+                else
+                {
+                    <p>Отзывов пока нет.</p>
+                }
+            </div>
+
+            <!-- Кнопка для перехода на страницу написания отзыва -->
+            <a href="@Url.Action("Write", "Review", new { concertId = Model.ConcertId })" class="btn btn-secondary mt-3">Написать отзыв</a>
+
             <!-- Ссылка на страницу покупки билетов -->
-            <a href="@Url.Action("Buy", "Concert", new { concertId = Model.ConcertId })" class="btn btn-primary">Купить билеты</a>
+            <a href="@Url.Action("Buy", "Concert", new { concertId = Model.ConcertId })" class="btn btn-primary mt-3">Купить билеты</a>
         </div>
     </div>
 

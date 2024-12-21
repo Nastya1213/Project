@@ -4,7 +4,7 @@ using Project.Models;
 public class ApplicationDbContext : DbContext
 {   public required DbSet<Concert> Concerts { get; set; }
     public required DbSet<User> Users { get; set; }
-    public required DbSet<Ticket> Tickets { get; set; }  // Добавляем DbSet для Ticket
+    public required DbSet<Ticket> Tickets { get; set; } 
     public required DbSet<Order> Orders { get; set; }
     public required DbSet<OrderTicket> OrderTickets { get; set; }
     public required DbSet<Review> Reviews { get; set; } 

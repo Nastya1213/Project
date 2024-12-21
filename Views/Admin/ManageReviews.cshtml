@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Управление отзывами";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Управление отзывами</h1>
+
+    <div class="form-group">
+        <label for="concertSelect">Выберите концерт:</label>
+        <select id="concertSelect" class="form-control">
+            <option value="">-- Выберите концерт --</option>
+            @foreach (var concert in ViewBag.Concerts)
+            {
+                <option value="@concert.ConcertId">@concert.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="statusSelect">Статус отзывов:</label>
+        <select id="statusSelect" class="form-control">
+            <option value="true">Опубликованные</option>
+            <option value="false">Неопубликованные</option>
+        </select>
+    </div>
+
+    <button id="loadReviews" class="btn btn-primary mt-3">Загрузить отзывы</button>
+
+    <div id="reviewsContainer" class="mt-4" style="display: none;">
+        <h3>Отзывы</h3>
+        <div id="reviewsList"></div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loadReviews').addEventListener('click', function () {
+        const concertId = document.getElementById('concertSelect').value;
+        const isVisible = document.getElementById('statusSelect').value;
+
+        if (!concertId) {
+            alert("Пожалуйста, выберите концерт.");
+            return;
+        }
+
+        fetch(`/Admin/GetReviews?concertId=${concertId}&isVisible=${isVisible}`)
+            .then(response => response.json())
+            .then(data => {
+                const reviewsContainer = document.getElementById('reviewsContainer');
+                const reviewsList = document.getElementById('reviewsList');
+                reviewsContainer.style.display = 'block';
+                reviewsList.innerHTML = '';
+
+                if (data.length === 0) {
+                    reviewsList.innerHTML = '<p>Отзывы не найдены.</p>';
+                    return;
+                }
+
+                data.forEach(review => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.classList.add('mb-3', 'p-3', 'border', 'rounded');
+
+                    reviewDiv.innerHTML = `
+                        <p><strong>Email:</strong> ${review.email}</p>
+                        <p><strong>Оценка:</strong> ${review.rating}/5</p>
+                        <p><strong>Комментарий:</strong> ${review.comment}</p>
+                        <p><small>Дата: ${new Date(review.reviewDate).toLocaleDateString()}</small></p>
+                        <button class="btn btn-success btn-sm publish-review" data-id="${review.reviewId}">Опубликовать</button>
+                        <button class="btn btn-danger btn-sm delete-review" data-id="${review.reviewId}">Удалить</button>
+                    `;
+
+                    reviewsList.appendChild(reviewDiv);
+                });
+
+                document.querySelectorAll('.publish-review').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const reviewId = this.dataset.id;
+                        fetch(`/Admin/PublishReview`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ reviewId })
+                        }).then(() => {
+                            alert("Отзыв опубликован.");
+                            this.closest('div').remove();
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.delete-review').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const reviewId = this.dataset.id;
+                        fetch(`/Admin/DeleteReview`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ reviewId })
+                        }).then(() => {
+                            alert("Отзыв удалён.");
+                            this.closest('div').remove();
+                        });
+                    });
+                });
+            });
+    });
+</script>
