@@ -64,39 +64,17 @@
                         <p><strong>Оценка:</strong> ${review.rating}/5</p>
                         <p><strong>Комментарий:</strong> ${review.comment}</p>
                         <p><small>Дата: ${new Date(review.reviewDate).toLocaleDateString()}</small></p>
-                        <button class="btn btn-success btn-sm publish-review" data-id="${review.reviewId}">Опубликовать</button>
-                        <button class="btn btn-danger btn-sm delete-review" data-id="${review.reviewId}">Удалить</button>
+                        <form action="/Admin/PublishReview" method="post" class="d-inline">
+                            <input type="hidden" name="reviewId" value="${review.reviewId}" />
+                            <button type="submit" class="btn btn-success btn-sm">Опубликовать</button>
+                        </form>
+                        <form action="/Admin/DeleteReview" method="post" class="d-inline">
+                            <input type="hidden" name="reviewId" value="${review.reviewId}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        </form>
                     `;
 
                     reviewsList.appendChild(reviewDiv);
-                });
-
-                document.querySelectorAll('.publish-review').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const reviewId = this.dataset.id;
-                        fetch(`/Admin/PublishReview`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ reviewId })
-                        }).then(() => {
-                            alert("Отзыв опубликован.");
-                            this.closest('div').remove();
-                        });
-                    });
-                });
-
-                document.querySelectorAll('.delete-review').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const reviewId = this.dataset.id;
-                        fetch(`/Admin/DeleteReview`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ reviewId })
-                        }).then(() => {
-                            alert("Отзыв удалён.");
-                            this.closest('div').remove();
-                        });
-                    });
                 });
             });
     });

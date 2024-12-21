@@ -3,19 +3,22 @@
 }
 
 <h2>Оставить отзыв на концерт "@ViewBag.ConcertName"</h2>
-
-<form asp-action="Write" method="post">
-    <input type="hidden" name="concertId" value="@ViewBag.ConcertId" />
-    <div class="form-group">
-        <label for="Rating">Оценка (1-5)</label>
-        <input type="number" id="Rating" name="Rating" class="form-control" min="1" max="5" required />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Write" method="post">
+            <input type="hidden" name="concertId" value="@ViewBag.ConcertId" />
+            <div class="form-group">
+                <label for="Rating">Оценка (1-5)</label>
+                <input type="number" id="Rating" name="Rating" class="form-control" min="1" max="5" required />
+            </div>
+            <div class="form-group mb-3"> <!-- mb-3 для отступа снизу -->
+                <label for="Comment">Комментарий</label>
+                <textarea id="Comment" name="Comment" class="form-control" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="Comment">Комментарий</label>
-        <textarea id="Comment" name="Comment" class="form-control" rows="4"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Отправить отзыв</button>
-</form>
+</div>
 
 @if (TempData["SuccessMessage"] != null)
 {

@@ -1,0 +1,45 @@
+@model IEnumerable<Project.Models.Concert>
+@{
+    ViewBag.Title = "Поиск концертов";
+}
+
+<h2>Поиск концертов</h2>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form method="get" action="/Concert/Search">
+            <div class="mb-3">
+                <input type="text" name="query" class="form-control" placeholder="Введите название, место или описание концерта" value="@ViewBag.Query" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </form>
+
+        @if (Model.Any())
+        {
+            <h4>Результаты поиска:</h4>
+            <div class="row">
+                @foreach (var concert in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="~/images/@concert.ImageFileName" class="card-img-top" alt="@concert.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@concert.Name</h5>
+                                <p class="card-text">
+                                    Дата: @concert.Date.ToString("dd.MM.yyyy")<br />
+                                    Время: @concert.Time.ToString(@"hh\:mm")<br />
+                                    Место: @concert.Venue
+                                </p>
+                                <a href="/Concert/Details/@concert.ConcertId" class="btn btn-primary">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(ViewBag.Query))
+        {
+            <p>Ничего не найдено по запросу "@ViewBag.Query".</p>
+        }
+    </div>
+</div>

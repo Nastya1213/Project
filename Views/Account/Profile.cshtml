@@ -1,10 +1,11 @@
 @model List<Project.Models.Order>
 
-<h2>Профиль @ViewBag.UserName</h2>
+
 <div class="row justify-content-center">
     <div class="col-md-6">
+        <h2>Профиль @ViewBag.UserName</h2>
+        </td>
         <h3>Мои заказы:</h3>
-
         <table class="table">
             <thead>
                 <tr>
@@ -28,5 +29,7 @@
                 }
             </tbody>
         </table>
+        <a href="/Account/Logout" class="btn btn-danger mt-3">Выйти</a>
     </div>
+    
 </div>

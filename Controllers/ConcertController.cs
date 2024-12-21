@@ -101,7 +101,22 @@ namespace Project.Controllers
         TempData["SuccessMessage"] = "Билет успешно куплен!";
         return RedirectToAction("Profile", "Account");
     }
-    
+
+        // Метод для отображения страницы поиска
+        public IActionResult Search(string query)
+        {
+            // Если строка запроса пуста, возвращаем пустой результат
+            var concerts = string.IsNullOrEmpty(query)
+                ? Enumerable.Empty<Concert>()
+                : _context.Concerts
+                    .Where(c => c.Name.Contains(query) || 
+                                (c.Venue != null && c.Venue.Contains(query)) || 
+                                (c.Description != null && c.Description.Contains(query)))
+                    .ToList();
+
+            ViewBag.Query = query;
+            return View(concerts);
+        }
 
 
     }

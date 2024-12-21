@@ -17,7 +17,14 @@ namespace Project.Controllers
 
         // Страница управления отзывами
         public IActionResult ManageReviews()
-        {
+        {   
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            var user = _context.Users.FirstOrDefault(u => u.Email == userEmail);
+
+            if (user == null || !user.IsAdmin)  // Проверяем, что пользователь существует и является администратором
+            {
+                return Unauthorized();  // Возвращаем ошибку 401, если пользователь не является администратором
+            }
             // Получаем список концертов
             var concerts = _context.Concerts
                 .Select(c => new { c.ConcertId, c.Name })
@@ -57,7 +64,8 @@ namespace Project.Controllers
             review.IsVisible = true;
             _context.Reviews.Update(review);
             await _context.SaveChangesAsync();
-            return Ok();
+            //return Ok();
+            return RedirectToAction("ManageReviews");
         }
 
         // Удалить (скрыть) отзыв
@@ -70,7 +78,7 @@ namespace Project.Controllers
             review.IsVisible = false;
             _context.Reviews.Update(review);
             await _context.SaveChangesAsync();
-            return Ok();
+            return RedirectToAction("ManageReviews");
         }
     }
 }
