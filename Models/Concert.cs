@@ -30,5 +30,9 @@ namespace Project.Models
          // Поле для хранения имени файла изображения
         [Column("image_filename")]
         public string? ImageFileName { get; set; }
+        public ICollection<Ticket> Tickets { get; set; } // Навигационное свойство
+
+        // Навигационное свойство для отзывов
+        public ICollection<Review> Reviews { get; set; }
     }
 }

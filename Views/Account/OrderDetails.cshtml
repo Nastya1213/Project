@@ -1,0 +1,21 @@
+@model List<Project.Models.OrderTicket>
+
+<h2>Детали билетов для заказа #@Model.First().OrderId</h2>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        @foreach (var orderTicket in Model)
+        {
+            <h3>Информация о билете:</h3>
+            <p><strong>Концерт:</strong> @orderTicket.Ticket.Concert.Name</p>
+            <p><strong>Дата концерта:</strong> @orderTicket.Ticket.Concert.Date.ToString("dd.MM.yyyy")</p>
+            <p><strong>Время концерта:</strong> @orderTicket.Ticket.Concert.Time.ToString(@"hh\:mm")</p>
+            <p><strong>Место:</strong> @orderTicket.Ticket.Seats</p>
+            <p><strong>Цена:</strong> @orderTicket.Ticket.Price</p>
+            <p><strong>Место проведения:</strong> @orderTicket.Ticket.Concert.Venue</p>
+            <hr />
+        }
+        <a href="@Url.Action("Profile", "Account")" class="btn btn-secondary">Назад в профиль</a>
+    </div>
+</div>
+
+

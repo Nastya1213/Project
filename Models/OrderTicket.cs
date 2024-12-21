@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace YourProject.Models
+namespace Project.Models
 {
     public class OrderTicket
     {
@@ -10,5 +10,8 @@ namespace YourProject.Models
         public int OrderId { get; set; }
         [Required]
         public int TicketId { get; set; }
+
+        // Навигационное свойство для связи с Ticket
+        public Ticket Ticket { get; set; }
     }
 }

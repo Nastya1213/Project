@@ -1,0 +1,37 @@
+@model Project.Models.Concert
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">@Model.Name</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Изображение концерта -->
+            <img src="@Url.Content("~/images/" + Model.ImageFileName)" alt="Image of @Model.Name" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6">
+            <!-- Информация о концерте -->
+            <p><strong>Дата:</strong> @Model.Date.ToString("dd.MM.yyyy")</p>
+            <p><strong>Время:</strong> @Model.Time.ToString(@"hh\:mm")</p>
+            <p><strong>Место проведения:</strong> @(Model.Venue ?? "Не указано")</p>
+            <p><strong>Описание:</strong></p>
+            <p>@(string.IsNullOrEmpty(Model.Description) ? "Описание отсутствует." : Model.Description)</p>
+            <h3>Отзывы</h3>
+                @foreach (var review in Model.Reviews)
+                {
+                    <div>
+                        <strong>@review.User.Email</strong> - @review.Rating/5
+                        <p>@review.Comment</p>
+                        <small>@review.ReviewDate.ToShortDateString()</small>
+                    </div>
+                }
+            <!-- Ссылка на страницу покупки билетов -->
+            <a href="@Url.Action("Buy", "Concert", new { concertId = Model.ConcertId })" class="btn btn-primary">Купить билеты</a>
+        </div>
+    </div>
+
+    <a href="/" class="btn btn-secondary mt-3">Вернуться на главную</a>
+</div>

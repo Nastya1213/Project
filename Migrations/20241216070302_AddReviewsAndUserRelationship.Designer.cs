@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241216070302_AddReviewsAndUserRelationship")]
+    partial class AddReviewsAndUserRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -109,10 +112,6 @@ namespace Project.Migrations
                     b.Property<int>("ConcertId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("is_visible");
-
                     b.Property<int>("Rating")
                         .HasColumnType("INTEGER");
 
@@ -128,7 +127,7 @@ namespace Project.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("Project.Models.Ticket", b =>
@@ -168,10 +167,6 @@ namespace Project.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("email");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("is_admin");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,0 +1,32 @@
+@model List<Project.Models.Order>
+
+<h2>Профиль @ViewBag.UserName</h2>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h3>Мои заказы:</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Дата заказа</th>
+                    <th>Статус</th>
+                    <th>Сумма</th>
+                    <th>Детали</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@order.OrderStatus</td>
+                        <td>@order.TotalPrice</td>
+                        <td>
+                            <a href="@Url.Action("OrderDetails", "Account", new { orderId = order.OrderId })" class="btn btn-primary">Просмотр билета</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

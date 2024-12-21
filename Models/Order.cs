@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace YourProject.Models
+namespace Project.Models
 {
     public class Order
     {
@@ -8,6 +8,7 @@ namespace YourProject.Models
         public int OrderId { get; set; }
         [Required]
         public int UserId { get; set; }
+        [Required]
         public string OrderStatus { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }

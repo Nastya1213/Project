@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Project.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241216063952_AddReview")]
+    partial class AddReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
@@ -96,41 +99,6 @@ namespace Project.Migrations
                     b.ToTable("OrderTickets");
                 });
 
-            modelBuilder.Entity("Project.Models.Review", b =>
-                {
-                    b.Property<int>("ReviewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ConcertId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("is_visible");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("ConcertId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reviews");
-                });
-
             modelBuilder.Entity("Project.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketId")
@@ -169,10 +137,6 @@ namespace Project.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("email");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("is_admin");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -188,6 +152,33 @@ namespace Project.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("YourProject.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ConcertId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ReviewDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ReviewId");
+
+                    b.ToTable("Review");
+                });
+
             modelBuilder.Entity("Project.Models.OrderTicket", b =>
                 {
                     b.HasOne("Project.Models.Ticket", "Ticket")
@@ -197,25 +188,6 @@ namespace Project.Migrations
                         .IsRequired();
 
                     b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("Project.Models.Review", b =>
-                {
-                    b.HasOne("Project.Models.Concert", "Concert")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ConcertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Project.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Concert");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project.Models.Ticket", b =>
@@ -231,8 +203,6 @@ namespace Project.Migrations
 
             modelBuilder.Entity("Project.Models.Concert", b =>
                 {
-                    b.Navigation("Reviews");
-
                     b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618

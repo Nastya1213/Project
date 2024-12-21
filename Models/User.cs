@@ -20,5 +20,11 @@ namespace Project.Models
         [Required]
         [Column("password")] // Указываем имя столбца в таблице
         public string Password { get; set; }
+        
+        [Required]
+        [Column("is_admin")] // Указываем имя столбца в таблице
+        public bool IsAdmin { get; set; }
+
+        
     }
 }

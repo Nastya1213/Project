@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace YourProject.Models
+namespace Project.Models
 {
     public class Ticket
     {
@@ -12,5 +12,10 @@ namespace YourProject.Models
         public decimal Price { get; set; }
         [Required]
         public int ConcertId { get; set; }
+        [Required]
+        public bool Available { get; set; }
+
+        // Навигационное свойство для связи с Concert
+        public Concert Concert { get; set; }
     }
 }
