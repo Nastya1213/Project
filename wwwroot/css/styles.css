@@ -23,10 +23,12 @@ main {
     padding: 40px 0;
 }
 
-footer {
+.footer {
     background-color: #031d37; /* Темный фон для подвала */
     color: white; /* Белый текст */
     text-align: center; /* Центрируем текст */
+    position: fixed !important; /* Подвал как приклеенный */
+    bottom: 0 !important; /* Фиксация снизу */
 }
 
 /* Стили для карусели */

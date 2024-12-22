@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "l7ZMeG+IgPFBr3qPrXCiLbBt/vM1W1UEYqJwyemPDA4=",
+  "Hash": "I1fuiwz3ZPsYbnlB6CiffLu1yHeW+Fg7TvK3G84GL9Q=",
   "Source": "Project",
   "BasePath": "_content/Project",
   "Mode": "Default",
@@ -150,12 +150,12 @@
       "OriginalItemSpec": "wwwroot/images/необычные группы 3.jpg"
     },
     {
-      "Identity": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/concert1.jpg",
+      "Identity": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/close-up-musical-keys-indoors-with-beautiful-lighting.jpg",
       "SourceId": "Project",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/",
       "BasePath": "_content/Project",
-      "RelativePath": "images/carousel/concert1.jpg",
+      "RelativePath": "images/carousel/close-up-musical-keys-indoors-with-beautiful-lighting.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -166,7 +166,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/images/carousel/concert1.jpg"
+      "OriginalItemSpec": "wwwroot/images/carousel/close-up-musical-keys-indoors-with-beautiful-lighting.jpg"
     },
     {
       "Identity": "/Users/anastasiaponomareva/Desktop/Project/wwwroot/images/carousel/concert2.jpg",

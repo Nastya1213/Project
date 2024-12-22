@@ -1,6 +1,6 @@
 @model List<Project.Models.OrderTicket>
 
-<h2>Детали билетов для заказа #@Model.First().OrderId</h2>
+<h2 align="center">Детали билетов для заказа #@Model.First().OrderId</h2>
 <div class="row justify-content-center">
     <div class="col-md-6">
         @foreach (var orderTicket in Model)

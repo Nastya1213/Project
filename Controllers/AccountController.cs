@@ -62,6 +62,7 @@ public class AccountController : Controller
         HttpContext.Session.SetString("UserEmail", user.Email); //при успешном входе пользователя его имя сохраняется в сессии
         HttpContext.Session.SetString("UserName", user.Name);
         HttpContext.Session.SetInt32("UserId", user.UserId);
+        HttpContext.Session.SetString("IsAdmin", user.IsAdmin ? "true" : "false");
         // Устанавливаем сообщение
         TempData["SuccessMessage"] = $"Добро пожаловать, {user.Name}!";
         return RedirectToAction("Profile", "Account");
@@ -77,9 +78,11 @@ public class AccountController : Controller
     //---Профиль---
     public IActionResult Profile()
 {
+      // Получаем из сессии
     var user = HttpContext.Session.GetString("UserName");
-     // Получаем UserId из сессии
     var userId = HttpContext.Session.GetInt32("UserId");
+    var isAdmin = HttpContext.Session.GetString("IsAdmin") == "true";
+
     if (string.IsNullOrEmpty(user))
     {
         return RedirectToAction("Login", "Account");
@@ -92,6 +95,7 @@ public class AccountController : Controller
 
     // Передаем данные в представление
     ViewBag.UserName = HttpContext.Session.GetString("UserName");
+    ViewBag.IsAdmin = isAdmin;
     return View(orders);
 }
 

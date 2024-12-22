@@ -32,7 +32,7 @@ namespace Project.Controllers
 
             // Получение топ-10 концертов из базы данных с привязкой к картинкам
             var topConcerts = _context.Concerts
-                .OrderBy(c => c.Name)
+                //.OrderBy(c => c.Name)
                 .Take(10)
                 .ToList();
 
